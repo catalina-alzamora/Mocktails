@@ -1,28 +1,72 @@
 /*
 style of webpage
 */
-
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #9622F2;
-    color:#484444;
+html, body{
+    height: 100%;
+    margin: 0px;
+}
+#bg{
+    background-color: #16161a;
+    font-family: 'Quicksand', sans-serif;
+    color:#121010;
+    height: 100%;
     width: auto;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+}
+#card{ 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #242629;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 900px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 H1{
     color: #F5F5F5;
 }
-input[type="button"]{
-    background-color:#484444;
+label{
     color: #F5F5F5;
-    border-radius: 20%;
+}
+input[type="button"]{
+    background-color: #7f5af0;
+    padding: 8px 16px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 30px rgba(127, 90, 240, 0.4);
 }
 input[type="button"]:hover{
-    background-color:#F5F5F5;
     color:#484444;
 }
-select{
-    margin:5%;
+select {
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-top: 10px;
+    box-shadow: 0 0 30px rgba(127, 90, 240, 0.4);
+}
+#picture{
+    max-width: 300px;
+    flex-shrink: 0;
+}
+#picture img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+@media (max-width: 600px) {
+    #card {
+        flex-direction: column;
+        text-align: center;
+    }
+    #picture {
+        max-width: 100%;
+        margin-top: 20px;
+    }
 }
