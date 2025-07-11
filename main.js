@@ -1,14 +1,18 @@
-const drinksListURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"; //list of names and images
-const drinkdetailsURL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="; //Lookup full drink details by id
+const allDrinksURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"; //list of names and images
+const drinkDetailsURL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="; //Lookup full drink details by id
 const searchBtn = document.getElementById('searchBtn');
-let drinkSelect = document.getElementById('mocktailSelect');
-let resultCard = document.getElementById('resultCard');
+const drinkSelect = document.getElementById('mocktailSelect');
+const card = document.getElementById('card');
+const resultCard = document.getElementById('resultCard');
+
+let ingAndMeasures = [];
+let ingredientsList = [];
 
 window.addEventListener("load", printDrinksList);
 
-async function getDrinksList() {
+async function getDrinksList(){
   try {
-    const response = await fetch(drinksListURL);   
+    const response = await fetch(allDrinksURL);   
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -31,12 +35,6 @@ async function printDrinksList(){
       console.error("Error:", error);
     }
 } 
-searchBtn.addEventListener("click", function () {
-  //adding selected id in drinkURL  
-  let drinkURL = drinkdetailsURL + drinkSelect.value;
-  getDrinkDetails(drinkURL);
-  return drinkURL;
-});
 async function getDrinkDetails(drinkURL) {
   try {
     const response = await fetch(drinkURL);   
@@ -44,35 +42,53 @@ async function getDrinkDetails(drinkURL) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     let data = await response.json();   
-    let drinkDetailsResponse = await data.drinks;
-    let drinkDetails = drinkDetailsResponse[0];
-    // getting ingredients
+    let drinkDetailsRes = await data.drinks;
+    let drinkDetails = drinkDetailsRes[0];
+    let name = drinkDetails.strDrink; 
+    let glass = drinkDetails.strGlass;
+    let photoURL = drinkDetails.strDrinkThumb;
     let ingredients = getIngredientsList(drinkDetails);
-    // Print ingredients
-    printIngredients(ingredients);
+    let instructions = drinkDetails.strInstructions;
+    instructions = instructions.split("-");
+    for (let i = 0; i < instructions.length; i++) {
+       instructions[i] = instructions[i] + "<br>";
+    }
+    instructions = instructions.join("");
+    printDetails(name, instructions, glass, photoURL, ingredients);
   } catch (error) {
-    console.error('Failed to fetch non-alcoholic drinks:', error);
+    console.error('Failed to fetch drink URL:', error);
   }
 }
 function getIngredientsList(drinkDetails) {
-  let ingredients = [];
   for (let i = 1; i <= 15; i++) {
     let ingredient = drinkDetails[`strIngredient${i}`];
-    let measure = drinkDetails[`strMeasure${i}`];
-    //discarding ingredients with empty value. 
-    if (ingredient && ingredient.trim() !== "") {
-      ingredients.push({
+    let measure = drinkDetails[`strMeasure${i}`]; 
+    if (ingredient && ingredient.trim() !== "") {  //discarding ingredients with empty value.
+      ingredientsList.push({
         ingredient,
+
         measure: measure ? measure.trim() : "N/A", //discarding empty measures with ternary operator
       });
     }      
   }
-  return ingredients;
-}
-function printIngredients(ingredients) {
-  resultCard.innerHTML = "Ingredients:<br>";
-  ingredients.forEach(ing => {
-    resultCard.innerHTML += `- ${ing.ingredient} (${ing.measure})<br>`;
+  ingredientsList.forEach(ing => {
+    ingAndMeasures += [`- ${ing.ingredient} (${ing.measure})<br>`];
   });
+  return ingAndMeasures;
 }
-
+function printDetails(name, instructions, glass, photoURL, ingredients) {
+resultCard.innerHTML += `<div><h2>${name}</h2><br>
+<p>Ingredients:</p>${ingredients}<br>
+<p class='instructions'>Instructions:<br> ${instructions}</p><br>
+<p class='glass'>Serve: ${glass}</p><br>
+</div><img class='photo' src='${photoURL}'>`
+}
+searchBtn.addEventListener("click", function () {
+  //adding selected id in drinkURL  
+  let drinkURL = drinkDetailsURL + drinkSelect.value;
+  getDrinkDetails(drinkURL);
+  //display only results
+  card.style.display = "none";
+  resultCard.style.display = "flex";
+  return drinkURL;
+});
