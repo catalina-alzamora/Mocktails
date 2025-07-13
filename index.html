@@ -9,7 +9,7 @@
     <body>
         <div id="bg">
             <div id="card">
-                <div>
+                <div class="textCard">
                     <h1>Let's make a Mocktail</h1>
                     <label for="mocktails">No alcohol? No Worries</label>
                     <div>
@@ -19,12 +19,13 @@
                         <input type="button" value="Go" id="searchBtn">               
                     </div>                               
                 </div>
-            <div id="picture">
-                <img src="drink.jpg" alt="drink">
-            </div>            
+                <div class="picture">
+                    <img src="drink.jpg" alt="drink">
+                </div>            
             </div>
-            <div id="resultCard">
-                <div id="ingredients"></div>
+            <div id="resultCard" class='hide'>
+                <button type="button" id="goBackBtn">Back</button>
+                <div id="resultContent"></div>
             </div>
         </div>
     </body>

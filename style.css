@@ -6,27 +6,16 @@ html, body{
     background-color: #16161a;
     font-family: 'Quicksand', sans-serif;
     color:#121010;
-    height: 100%;
+     min-height: 100vh;
     width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#card { 
+#card{ 
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #242629;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 900px;
-    width: 90%;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-#resultCard{
-    display: none;
     align-items: flex-start;
-    color: #F5F5F5;
     background-color: #242629;
     border-radius: 10px;
     padding: 20px;
@@ -34,8 +23,77 @@ html, body{
     width: 90%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-H1{
+.textCard{
+    padding-left: 40px;
+}
+.picture{
+    max-width: 300px;
+    flex-shrink: 0;
+}
+.picture img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+#resultCard {
+    background-color: #242629;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 900px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #F5F5F5;
+}
+#resultCard.hide, #card.hide{
+    display: none;
+}
+#resultContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+#textResult {
+    flex: 1 1 55%;
+    min-width: 250px;
+}
+#textResult h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.8em;
+    color: #7f5af0;
+}
+#textResult p {
+    margin: 0 0 10px;
+    line-height: 1.6;
+    font-size: 1em;
+}
+#textResult ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0 0 12px 0;
+}
+#textResult .glass {
+    font-style: italic;
+    margin-top: 10px;
+    color: #94a1b2;
+}
+#goBackBtn {
+    background-color: #72757e;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 20px;
+}
+#goBackBtn:hover {
+    background-color: #5c5f66;
+}
+
+H1{
+    color: #7f5af0;
 }
 label{
     color: #F5F5F5;
@@ -52,34 +110,46 @@ input[type="button"]{
 input[type="button"]:hover{
     color:#484444;
 }
-select {
+select{
     padding: 8px;
     border-radius: 5px;
     font-size: 1em;
     margin-top: 10px;
     box-shadow: 0 0 30px rgba(127, 90, 240, 0.4);
 }
-#picture {
-    max-width: 300px;
-    flex-shrink: 0;
-}
-#picture img{
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-.photo{
-     max-width: 300px;
-    flex-shrink: 0;
-}
 
-@media (max-width: 600px) {
+@media (max-width: 600px){
+    #card{
+        flex-direction: column;
+        text-align: center;
+    }
+    .picture{
+        max-width: 100%;
+        margin-top: 20px;
+    }
+}
+@media (max-width: 700px) {
     #card {
         flex-direction: column;
         text-align: center;
     }
-    #picture {
+
+    .picture {
         max-width: 100%;
         margin-top: 20px;
+    }
+
+    #resultContent {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #textResult ul {
+        padding-left: 0;
+    }
+
+    #textResult {
+        width: 100%;
     }
 }

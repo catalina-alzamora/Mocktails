@@ -3,7 +3,10 @@ const drinkDetailsURL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?
 const searchBtn = document.getElementById('searchBtn');
 const drinkSelect = document.getElementById('mocktailSelect');
 const card = document.getElementById('card');
+const resultContent = document.getElementById('resultContent');
+const detailsDiv = document.getElementById('drinkDetailsDiv');
 const resultCard = document.getElementById('resultCard');
+const goBackBtn = document.getElementById('goBackBtn');
 
 let ingAndMeasures = [];
 let ingredientsList = [];
@@ -49,9 +52,10 @@ async function getDrinkDetails(drinkURL) {
     let photoURL = drinkDetails.strDrinkThumb;
     let ingredients = getIngredientsList(drinkDetails);
     let instructions = drinkDetails.strInstructions;
+    //Formating instructions
     instructions = instructions.split("-");
     for (let i = 0; i < instructions.length; i++) {
-       instructions[i] = instructions[i] + "<br>";
+       instructions[i] = "<p>" + instructions[i] + "</p>";
     }
     instructions = instructions.join("");
     printDetails(name, instructions, glass, photoURL, ingredients);
@@ -72,23 +76,31 @@ function getIngredientsList(drinkDetails) {
     }      
   }
   ingredientsList.forEach(ing => {
-    ingAndMeasures += [`- ${ing.ingredient} (${ing.measure})<br>`];
+    ingAndMeasures += [`<li>${ing.ingredient} (${ing.measure})</li>`];
   });
   return ingAndMeasures;
 }
 function printDetails(name, instructions, glass, photoURL, ingredients) {
-resultCard.innerHTML += `<div><h2>${name}</h2><br>
-<p>Ingredients:</p>${ingredients}<br>
-<p class='instructions'>Instructions:<br> ${instructions}</p><br>
-<p class='glass'>Serve: ${glass}</p><br>
-</div><img class='photo' src='${photoURL}'>`
+  resultContent.innerHTML = '';
+  resultContent.innerHTML += 
+  `<div id='textResult'>
+      <h2>${name}</h2>
+      <p>Ingredients:</p><ul>${ingredients}</ul>
+      <p class='instructions'>Instructions:</p><p>${instructions}</p>
+      <p class='glass'>Serve: ${glass}</p></div>
+   <div class="picture"><img src='${photoURL}'></div>`
 }
-searchBtn.addEventListener("click", function () {
+
+searchBtn.addEventListener("click", () => {
   //adding selected id in drinkURL  
   let drinkURL = drinkDetailsURL + drinkSelect.value;
   getDrinkDetails(drinkURL);
   //display only results
-  card.style.display = "none";
-  resultCard.style.display = "flex";
+  card.classList.add("hide");
+  resultCard.classList.remove("hide");
   return drinkURL;
+});
+goBackBtn.addEventListener("click", () => {
+  resultCard.classList.add("hide");
+  card.classList.remove("hide");
 });
