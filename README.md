@@ -11,4 +11,4 @@ https://www.figma.com/proto/zMaFcwLYkY0CKXAEPzN6hW/Mocktails?node-id=4-21&p=f&t=
 Initial idea of the design. I changed it to make the content centered and to fit the colours with a more modern view.
 
 ## Final Design
-![ Final Design](/src/finalDesign.jpg)
+![ Final Design](/finalDesign.jpg)
