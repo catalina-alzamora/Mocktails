@@ -1,6 +1,7 @@
 # Mocktails
-Exercise to call an API
-Non-alcoholic drink recipes
+ https://catalina-alzamora.github.io/Mocktails/
+
+Non-alcoholic drink recipes. It's an exercise to call an API.
 
 ## Tools
 HTML, JS, CSS, TheCocktailDb API: https://www.thecocktaildb.com/api.php
