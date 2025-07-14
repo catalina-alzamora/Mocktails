@@ -4,16 +4,12 @@ const searchBtn = document.getElementById('searchBtn');
 const drinkSelect = document.getElementById('mocktailSelect');
 const card = document.getElementById('card');
 const resultContent = document.getElementById('resultContent');
-const detailsDiv = document.getElementById('drinkDetailsDiv');
 const resultCard = document.getElementById('resultCard');
 const goBackBtn = document.getElementById('goBackBtn');
 
-let ingAndMeasures = [];
-let ingredientsList = [];
-
 window.addEventListener("load", printDrinksList);
 
-async function getDrinksList(){
+async function getDrinksList() {
   try {
     const response = await fetch(allDrinksURL);   
     if (!response.ok) {
@@ -27,7 +23,7 @@ async function getDrinksList(){
     console.error('Failed to fetch non-alcoholic drinks:', error);
   }
 }
-async function printDrinksList(){
+async function printDrinksList() {
   try {
     const drinksListArray = await getDrinksList();
     drinksListArray.forEach(drink => {
@@ -50,7 +46,7 @@ async function getDrinkDetails(drinkURL) {
     let name = drinkDetails.strDrink; 
     let glass = drinkDetails.strGlass;
     let photoURL = drinkDetails.strDrinkThumb;
-    let ingredients = getIngredientsList(drinkDetails);
+    let ingredients = formatIngredients(drinkDetails);
     let instructions = drinkDetails.strInstructions;
     //Formating instructions
     instructions = instructions.split("-");
@@ -63,15 +59,16 @@ async function getDrinkDetails(drinkURL) {
     console.error('Failed to fetch drink URL:', error);
   }
 }
-function getIngredientsList(drinkDetails) {
+function formatIngredients(drinkDetails) {
+  let ingredientsList = [];
+  let ingAndMeasures = [];
   for (let i = 1; i <= 15; i++) {
     let ingredient = drinkDetails[`strIngredient${i}`];
     let measure = drinkDetails[`strMeasure${i}`]; 
     if (ingredient && ingredient.trim() !== "") {  //discarding ingredients with empty value.
       ingredientsList.push({
         ingredient,
-
-        measure: measure ? measure.trim() : "N/A", //discarding empty measures with ternary operator
+        measure: (measure && measure.trim().toLowerCase() !== "n/a") ? measure.trim() : "", //discarding empty measures with ternary operator
       });
     }      
   }
@@ -85,12 +82,11 @@ function printDetails(name, instructions, glass, photoURL, ingredients) {
   resultContent.innerHTML += 
   `<div id='textResult'>
       <h2>${name}</h2>
-      <p>Ingredients:</p><ul>${ingredients}</ul>
-      <p class='instructions'>Instructions:</p><p>${instructions}</p>
+      <p><b>Ingredients:</b></p><ul>${ingredients}</ul>
+      <p class='instructions'><b>Instructions:</b></p><p>${instructions}</p>
       <p class='glass'>Serve: ${glass}</p></div>
    <div class="picture"><img src='${photoURL}'></div>`
 }
-
 searchBtn.addEventListener("click", () => {
   //adding selected id in drinkURL  
   let drinkURL = drinkDetailsURL + drinkSelect.value;
@@ -104,3 +100,4 @@ goBackBtn.addEventListener("click", () => {
   resultCard.classList.add("hide");
   card.classList.remove("hide");
 });
+

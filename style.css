@@ -1,18 +1,18 @@
-html, body{
+html, body {
     height: 100%;
     margin: 0px;
 }
-#bg{
+#bg {
     background-color: #16161a;
     font-family: 'Quicksand', sans-serif;
     color:#121010;
-     min-height: 100vh;
+    min-height: 100vh;
     width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#card{ 
+#card {  
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -23,17 +23,42 @@ html, body{
     width: 90%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-.textCard{
+.textCard {
     padding-left: 40px;
 }
-.picture{
+.picture {
     max-width: 300px;
     flex-shrink: 0;
 }
-.picture img{
+.picture img {
     width: 100%;
     height: auto;
     border-radius: 10px;
+}
+H1 {
+    color: #7f5af0;
+}
+label {
+    color: #F5F5F5;
+}
+input[type="button"] {
+    background-color: #7f5af0;
+    padding: 8px 16px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 30px rgba(127, 90, 240, 0.4);
+}
+input[type="button"]:hover {
+    color:#484444;
+}
+select {
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-top: 10px;
+    box-shadow: 0 0 30px rgba(127, 90, 240, 0.4);
 }
 #resultCard {
     background-color: #242629;
@@ -44,7 +69,7 @@ html, body{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #F5F5F5;
 }
-#resultCard.hide, #card.hide{
+#resultCard.hide, #card.hide {
     display: none;
 }
 #resultContent {
@@ -81,7 +106,7 @@ html, body{
 #goBackBtn {
     background-color: #72757e;
     color: #fff;
-    padding: 8px 16px;
+    padding: 10px 14px 12px 14px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -91,39 +116,12 @@ html, body{
 #goBackBtn:hover {
     background-color: #5c5f66;
 }
-
-H1{
-    color: #7f5af0;
-}
-label{
-    color: #F5F5F5;
-}
-input[type="button"]{
-    background-color: #7f5af0;
-    padding: 8px 16px;
-    font-size: 1em;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 0 30px rgba(127, 90, 240, 0.4);
-}
-input[type="button"]:hover{
-    color:#484444;
-}
-select{
-    padding: 8px;
-    border-radius: 5px;
-    font-size: 1em;
-    margin-top: 10px;
-    box-shadow: 0 0 30px rgba(127, 90, 240, 0.4);
-}
-
-@media (max-width: 600px){
-    #card{
+@media (max-width: 600px) {
+    #card {
         flex-direction: column;
         text-align: center;
     }
-    .picture{
+    .picture {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -133,22 +131,18 @@ select{
         flex-direction: column;
         text-align: center;
     }
-
     .picture {
         max-width: 100%;
         margin-top: 20px;
     }
-
     #resultContent {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
-
     #textResult ul {
         padding-left: 0;
     }
-
     #textResult {
         width: 100%;
     }
